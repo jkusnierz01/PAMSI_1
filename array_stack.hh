@@ -1,34 +1,34 @@
-#ifndef STACK_HH
-#define STACK_HH
+#ifndef ARRAY_STACK_HH
+#define ARRAY_STACK_HH
 
 #include <iostream>
 using namespace std;
 
 
 template <typename Type>
-class stos
+class array_stack
 {
 private:
     int size;
-    Type *pointer;
+    Type *pointer;          //pointer to dynamic array
     int iterator;
 public:
-    stos(int p)
+    array_stack(int p)
     {
         size = p;                   // rozmar dynamicznej tablicy
         pointer = new Type[size];   // wskaźnik na dynamicznie zadelarowana tablice
         iterator = 0;
     }
     void push(Type number);      // dodanie elementu na stos
-    void pop(Type number);      // usuniecie elementu ze stosu
+    void pop();      // usuniecie elementu ze stosu
     void show();               //wyswietlenie ostatniego elementu stosu
     void remove_all();        //usuniecie wszystkich elementow stosu
 };
 
 template <typename Type>
-void stos<Type>::push(Type number)
+void array_stack<Type>::push(Type number)
 {
-    if(this->iterator<size)
+    if(this->iterator<size)         //we check if we can still add new element - if we are not out of arrary's range
     {
         pointer[this->iterator] = number;
         iterator += 1;
@@ -36,24 +36,31 @@ void stos<Type>::push(Type number)
 }
 
 template <typename Type>
-void stos<Type>::pop(Type number)
+void array_stack<Type>::pop()
 {
-    pointer[this->iterator -1] = NULL;
+    pointer[this->iterator -1] = 0;
     this->iterator -= 1;
 }
 
 template <typename Type>
-void stos<Type>::show()
+void array_stack<Type>::show()
 {   
-    cout << "Ostatni element stosu: " << pointer[this->iterator - 1] << "\n";
+    if(this->iterator < 1)
+    {
+        cout << "Stos pusty!" << "\n";
+    }
+    else
+    {
+        cout << "Ostatni element stosu: " << pointer[this->iterator - 1] << "\n";
+    }
 }
 
 template <typename Type>
-void stos<Type>::remove_all()
+void array_stack<Type>::remove_all()
 {
     for (int i = 0; i < size; i++)
     {
-        pointer[i] = NULL;
+        pointer[i] = 0;
     }
     iterator = 0;
 }
