@@ -65,5 +65,4 @@ void array_stack<Type>::remove_all()
     iterator = 0;
 }
 
-
 #endif
