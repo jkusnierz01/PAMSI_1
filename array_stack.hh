@@ -1,6 +1,5 @@
 #ifndef ARRAY_STACK_HH
 #define ARRAY_STACK_HH
-
 #include <iostream>
 using namespace std;
 
