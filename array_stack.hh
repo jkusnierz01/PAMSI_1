@@ -1,6 +1,5 @@
 #ifndef ARRAY_STACK_HH
 #define ARRAY_STACK_HH
-
 #include <iostream>
 using namespace std;
 
@@ -64,6 +63,5 @@ void array_stack<Type>::remove_all()
     }
     iterator = 0;
 }
-
 
 #endif
