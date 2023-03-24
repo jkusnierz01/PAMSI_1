@@ -1,6 +1,5 @@
 #ifndef LIST_STACK_HH
 #define LIST_STACK_HH
-
 #include <iostream>
 using namespace std;
 /*
