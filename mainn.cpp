@@ -24,7 +24,6 @@ int main()
             usleep(sleep);
             kolejka.push(tab[x]);
             cout << "Rozmiar struktury: " << sizeof(kolejka) << endl;;
-            cout << "Ostatni element w kolejce: " << kolejka.TailPointer->Value << endl;
         }
         x=0;
     }
