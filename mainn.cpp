@@ -1,10 +1,11 @@
-#include "queue.hh"
+#include "test.cpp"
 #include <cstdlib>
 #include <unistd.h>
 
 
 int main() 
 {
+    TEST();
     bool x=1;
     int size;
     queue<int> kolejka;

@@ -63,11 +63,16 @@ void queue<QueueType>::push(QueueType value)
 template <typename QueueType>
 void queue<QueueType>::pop()        //usuwanie elementu 1 elementu z kolejki - tego na ktory wskazuje TopPointer
 {
-    if(this->TopPointer != NULL)                    //tworzymy wskaznik tymczasowy ktory pokazuje na pierwszy element(ten ktoty ma byc usuniety)
-    {                                               //nastepnie wskaznik TopPointer wskazuje na kolejny elelment
-        queue_elem<QueueType>* tmp = this->TopPointer;  //a element na ktory wskazuje tmp zostaje usuniety
-        this->TopPointer = this->TopPointer->pointer;
-        delete tmp;
+    if(this->TopPointer != NULL)                         
+    {                                                    //tworzymy wskaznik tymczasowy ktory pokazuje na pierwszy element(ten ktoty ma byc usuniety)
+        queue_elem<QueueType>* tmp = this->TopPointer;  
+        if (this->TopPointer==this->TailPointer)
+        {
+            this->TailPointer = this->TopPointer->pointer;
+        }       
+        this->TopPointer = this->TopPointer->pointer;           //nastepnie wskaznik TopPointer wskazuje na kolejny elelment
+        delete tmp;                                             //a element na ktory wskazuje tmp zostaje usuniety
+        tmp = NULL;
     }
 }
 
