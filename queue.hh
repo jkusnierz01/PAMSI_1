@@ -12,7 +12,7 @@ Parametry:
 template <typename Type>
 struct queue_elem
 {
-    queue_elem* pointer;
+    queue_elem *pointer;
     Type Value;
     queue_elem(Type in_value)
     {
@@ -25,7 +25,7 @@ struct queue_elem
 Struktura: Kolejka oparta na liście jednokierunkowej
 Parametry:
     - wskaxnik na pierwszy element listy
-    - wskaznik na ostatni element listy 
+    - wskaznik na ostatni element listy
 Metody:
     - push
     - pop
@@ -33,9 +33,9 @@ Metody:
 template <typename QueueType>
 struct queue
 {
-    queue_elem<QueueType>* TopPointer;
-    queue_elem<QueueType>* TailPointer;
-    queue()                             // konstruktor
+    queue_elem<QueueType> *TopPointer;
+    queue_elem<QueueType> *TailPointer;
+    queue() // konstruktor
     {
         TopPointer = NULL;
         TailPointer = NULL;
@@ -47,35 +47,47 @@ struct queue
 template <typename QueueType>
 void queue<QueueType>::push(QueueType value)
 {
-    if(this->TailPointer == NULL && this->TopPointer == NULL)   //sprawdzamy jest juz jakis element kolejki
-    {                                                           //jezeli go nie ma to obydwa wskazniki maja pokazywac na 1 element
-        this->TopPointer = new queue_elem<QueueType>(value);
-        this->TailPointer = this->TopPointer;
+    if (this->TailPointer == NULL && this->TopPointer == NULL) // sprawdzamy jest juz jakis element kolejki
+    {
+        try
+        {
+            this->TopPointer = new queue_elem<QueueType>(value);
+        }
+        catch (bad_alloc &e) // w przypadku błedu z alokowaniem pamieci funkcja zglosi wyjatek std::bad_alloc
+        {
+            cerr << "Blad alokacji " << e.what() << '\n'; // wyjscie diagnostyczne do wypisywania bledow
+        }
+        this->TailPointer = this->TopPointer; // jezeli go nie ma to obydwa wskazniki maja pokazywac na 1 element
     }
-    else                                                       //przy dodawaniu nowego elementu do kolejki laduje on na koncu
-    {                                                          //dlatego zmieniamy tylko wskaznik pokazujacy na koniec kolejki
-        this->TailPointer->pointer = new queue_elem<QueueType>(value);
+    else
+    {
+        try
+        {
+            this->TailPointer->pointer = new queue_elem<QueueType>(value);
+        }
+        catch (bad_alloc &e)
+        {
+            cerr << "Blad alokacji " << e.what() << '\n';
+        }
+
         this->TailPointer = this->TailPointer->pointer;
-        
     }
 }
 
 template <typename QueueType>
-void queue<QueueType>::pop()        //usuwanie elementu 1 elementu z kolejki - tego na ktory wskazuje TopPointer
+void queue<QueueType>::pop() 
 {
-    if(this->TopPointer != NULL)                         
-    {                                                    //tworzymy wskaznik tymczasowy ktory pokazuje na pierwszy element(ten ktoty ma byc usuniety)
-        queue_elem<QueueType>* tmp = this->TopPointer;  
-        if (this->TopPointer==this->TailPointer)
+    if (this->TopPointer != NULL)
+    { 
+        queue_elem<QueueType> *tmp = this->TopPointer;  // tworzymy wskaznik tymczasowy ktory pokazuje na pierwszy element(ten ktory ma byc usuniety)
+        if (this->TopPointer == this->TailPointer)      //sprawdzamy czy jest tylko jeden element w kolejce
         {
-            this->TailPointer = this->TopPointer->pointer;
-        }       
-        this->TopPointer = this->TopPointer->pointer;           //nastepnie wskaznik TopPointer wskazuje na kolejny elelment
-        delete tmp;                                             //a element na ktory wskazuje tmp zostaje usuniety
+            this->TailPointer = this->TopPointer->pointer;          //jezeli tak to nasz tylni wskaznik tez musi wskazywać na NULL
+        }
+        this->TopPointer = this->TopPointer->pointer; // nastepnie wskaznik TopPointer wskazuje na kolejny elelment
+        delete tmp;                                   // a element na ktory wskazuje tmp zostaje usuniety
         tmp = NULL;
     }
 }
-
-
 
 #endif
