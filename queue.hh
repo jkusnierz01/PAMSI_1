@@ -41,13 +41,13 @@ struct queue
         TailPointer = NULL;
     }
     void push(QueueType value);
-    void pop();
+    int pop();
 };
 
 template <typename QueueType>
 void queue<QueueType>::push(QueueType value)
 {
-    if (this->TailPointer == NULL && this->TopPointer == NULL) // sprawdzamy jest juz jakis element kolejki
+    if (this->TailPointer == 0 && this->TopPointer == 0) // sprawdzamy jest juz jakis element kolejki
     {
         try
         {
@@ -69,15 +69,15 @@ void queue<QueueType>::push(QueueType value)
         {
             cerr << "Blad alokacji " << e.what() << '\n';
         }
-
         this->TailPointer = this->TailPointer->pointer;
     }
 }
 
 template <typename QueueType>
-void queue<QueueType>::pop() 
+int queue<QueueType>::pop() 
 {
-    if (this->TopPointer != NULL)
+    int pop_elem;
+    if (this->TopPointer != 0)
     { 
         queue_elem<QueueType> *tmp = this->TopPointer;  // tworzymy wskaznik tymczasowy ktory pokazuje na pierwszy element(ten ktory ma byc usuniety)
         if (this->TopPointer == this->TailPointer)      //sprawdzamy czy jest tylko jeden element w kolejce
@@ -85,9 +85,16 @@ void queue<QueueType>::pop()
             this->TailPointer = this->TopPointer->pointer;          //jezeli tak to nasz tylni wskaznik tez musi wskazywać na NULL
         }
         this->TopPointer = this->TopPointer->pointer; // nastepnie wskaznik TopPointer wskazuje na kolejny elelment
+        pop_elem = tmp->Value;
         delete tmp;                                   // a element na ktory wskazuje tmp zostaje usuniety
         tmp = NULL;
+        return pop_elem;
     }
+    else
+    {
+        return -1;
+    }
+        
 }
 
 #endif
