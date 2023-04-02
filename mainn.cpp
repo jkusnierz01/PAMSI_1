@@ -80,19 +80,6 @@ int main()
 };
 
 
-/*
-Czy aktualny rozmiar skuktury to po prostu wartość zwaraca przez funkcje sizeof()?
-W jaki sposob program rowonoczesnie ma wrzucac elementy i wypisywac na ekranie wielkosc stuktury?
-"...pobranie najstarszej informacji przechowywanej w strukturze" - wypisać po prostu na ekranie?
-
-
-rozmiar to sizeof kolejki i rozmiar sizeof kazdego z elementow
-interfejs moze wygladac tak ze mamy do wyboru jedna z opcji o wzroceniu najstarszego, wyswietlenie rozmiaru itd.
-test wygląda tak ze wrzucamy 50 mil elementow usuwam 30 milionow i patrze jaki jest rozmiar struktury 
-
-czy jest mozliwosc wyswietlania dynamicznego rozmiaru 
-
-*/
 
 
 
